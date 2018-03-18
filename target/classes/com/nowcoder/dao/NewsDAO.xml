@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nowcoder.dao.NewsDAO">
+	<sql id="table">news</sql>
+	<sql id="selectFields">n_id,title,link,image,comment_count,u_id,n_date,like_count</sql>
+	<select id="selectByUserIdAndOffset" resultType="com.nowcoder.model.News">
+		SELECT
+		<include refid="selectFields"/>
+		FROM
+		<include refid="table"/>
+		<if test="uId!=0">
+			WHERE u_id=#{uId}
+		</if>
+		ORDER BY n_date DESC
+		LIMIT #{offset},#{limit}
+	</select>
+</mapper>
